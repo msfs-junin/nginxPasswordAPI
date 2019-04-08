@@ -1,0 +1,22 @@
+version: '3.2'
+services:
+  passwordapi1:
+      build: ./passwordapi/src
+      tty: true
+      volumes:
+        - './passwordapi/src:/passwordapiDir'
+  passwordapi2:
+      build: ./passwordapi/src
+      tty: true
+      volumes:
+        - './passwordapi/src:/passwordapiDir'
+  nginx:
+      build: ./nginx
+      tty: true
+      links:
+          - passwordapi1
+          - passwordapi2
+      ports:
+          - '6070:6070'
+volumes:
+  passwordapi:
